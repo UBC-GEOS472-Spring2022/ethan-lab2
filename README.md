@@ -3,8 +3,14 @@
 ![](Picture/Screen.png)
 Web link : https://ubc-geos472-spring2022.github.io/ethan-lab2/Schools.html
 
+Collaborations and reliance on other resources:
+
+Before this map was produced. I was trying something different from the class activities but none of those would produce a working map. So, the reliance for this map is basically from activities before. I try to add one more button try to filter the dataset a little bit. To classify public schools and independent schools. I try to write down some codings related. As the result, the button is not working but no bugs in the program appeared. Therefore I left the coding in the HTML file. The second thing that I try to achieve through this lab is to buffer a selected location with a given radius to see the schools covered by the buffered circle. Unfortunately, I can not figure out how to set different inputs to manage the buffer location and the radius of the circle. So I just put my current location on it and set the radius to 1500 meters. 
+
+
 
 Reflective analysis:
+
 This map is designed for parents who have children who are planning to go to the nearby schools. The map summarizes elementary schools to high schools located in the Vancouver area. It has a search bar to find the name of the specific schools that parents want to look at. This map is helpful for some parents to decide the place to rent a house and the school that they want their children to attend within certain distances. The map at this moment only successfully addresses concerns for residents who live nearby the Dunbar area and the search radius is 1500 meters. The location and the radius are fixed for now, but I hope to improve it later to where people can manually set up their locations and their search radius. 
 
 For the color theme that I used when designing the map, I set the color of the selected schools highlighted from the background color. For the iteration part, I make sure each step of my code works before adding some additional information. Such as first, make sure the base map is presenting well, then add buttons and create its corresponding listener. One of the buttons for the map is not working for now, but I did include the codes that I assume would work in the meantime the map is still working. The map is capable of zooming in and out. When the cursor passes the school listed on the map, the name of the school would show up.  The name of the streets is included in the map which provides more information for understanding. 
