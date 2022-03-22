@@ -4,6 +4,7 @@
 Web link : https://ubc-geos472-spring2022.github.io/ethan-lab2/Schools.html
 
 
+Reflective analysis:
 This map is designed for parents who have children who are planning to go to the nearby schools. The map summarizes elementary schools to high schools located in the Vancouver area. It has a search bar to find the name of the specific schools that parents want to look at. This map is helpful for some parents to decide the place to rent a house and the school that they want their children to attend within certain distances. The map at this moment only successfully addresses concerns for residents who live nearby the Dunbar area and the search radius is 1500 meters. The location and the radius are fixed for now, but I hope to improve it later to where people can manually set up their locations and their search radius. 
 
 For the color theme that I used when designing the map, I set the color of the selected schools highlighted from the background color. For the iteration part, I make sure each step of my code works before adding some additional information. Such as first, make sure the base map is presenting well, then add buttons and create its corresponding listener. One of the buttons for the map is not working for now, but I did include the codes that I assume would work in the meantime the map is still working. The map is capable of zooming in and out. When the cursor passes the school listed on the map, the name of the school would show up.  The name of the streets is included in the map which provides more information for understanding. 
