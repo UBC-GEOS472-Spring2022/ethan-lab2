@@ -15,10 +15,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <script src="./p5.min.js"></script>
+    <script src="dot.js"></script>
 
   </head>
   <body>
-    <div id="mapid" style="width: 600px; height: 400px;"></div>
+    <div id="mapid" style="width: 700px; height: 400px;"></div>
 
 
     <div id="controls" style="margin: 15px;">
@@ -28,15 +29,10 @@
       <input type="text" id="highlightSchoolsTextEntry" placeholder="name" />
       <button id="highlightSchoolsButton">Highlight</button>
       
-       <span style="display:inline-block; width: 150px"></span>
+       <span style="display:inline-block; width: 50px"></span>
       <input type="text" id="highlightCategoryTextEntry" placeholder="public/independent" />
       <button id="highlightCategoryButton">Filter</button>
-      
-      
-      
-      
-      
-      
+    
     </div>
 
     <script>
@@ -47,6 +43,7 @@
           								'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
  {maxZoom: 17, attribution: 'Basemap data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Basemap style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'}).addTo(map);
       
+
       
       var point = turf.point([-123.18915, 49.25359],);
       
@@ -164,8 +161,8 @@
         .value;  
       addschools(); 
       taxaToHighlight = "";  
-    }
-
+    }      
+      
   var treeGeoJSONdata; 
 
 
