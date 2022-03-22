@@ -1,3 +1,3 @@
 # ethan-lab2
 
-![](main/Untitled.png)
+![](Picture/Untitled.png)
