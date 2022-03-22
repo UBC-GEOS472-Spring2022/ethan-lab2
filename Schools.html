@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vancouver Schools</title>
+    <meta charset="utf-8" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+        <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script src="./p5.min.js"></script>
+
+  </head>
+  <body>
+    <div id="mapid" style="width: 600px; height: 400px;"></div>
+
+
+    <div id="controls" style="margin: 15px;">
+      <button id="showAllSchoolsButton">Show All Schools</button>
+
+      <span style="display:inline-block; width: 30px"></span>
+      <input type="text" id="highlightSchoolsTextEntry" placeholder="name" />
+      <button id="highlightSchoolsButton">Highlight</button>
+      
+       <span style="display:inline-block; width: 150px"></span>
+      <input type="text" id="highlightCategoryTextEntry" placeholder="public/independent" />
+      <button id="highlightCategoryButton">Filter</button>
+      
+      
+      
+      
+      
+      
+    </div>
+
+    <script>
+
+        var map = L.map('mapid',{center: [49.247579, -123.126822],zoom: 11});
+
+      var topoTiles = L.tileLayer(
+          								'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+ {maxZoom: 17, attribution: 'Basemap data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Basemap style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'}).addTo(map);
+      
+      
+      var point = turf.point([-123.18915, 49.25359],);
+      
+       console.log(point);
+      
+      var buffered = turf.buffer(point, 1500, {units: 'meters'});
+      
+       L.geoJson(buffered).addTo(map);
+      
+      
+      
+   var schoolMarkerOptions = {
+    	radius: 5,
+    	fillColor: "#ff1a00",
+    	color: "#000",
+    	weight: 1,
+    	opacity: 0.2,
+    	fillOpacity: 1};
+
+   var schoolMarkerHighlightedOptions = {
+    	radius: 5,
+    	fillColor: "#00ff1a",  
+    	color: "#000",
+    	weight: 3,
+    	opacity: 1,
+    	fillOpacity: 1};
+
+      
+  var schoolFilteredOptions = {
+        radius: 9,
+    	fillColor: "#FF9900",  
+    	color: "#000",
+    	weight: 3,
+    	opacity: 0.3,
+    	fillOpacity: 1};
+      
+      
+      
+      
+      
+      
+        function onEachLots(feature, layer) {
+           if (feature.properties && feature.properties.school_category) {       layer.bindTooltip(feature.properties.school_name.toString());}}
+
+         
+      function onEachSchools(feature, layer){
+        if (feature.properties && feature.properties.school_category) {       layer.bindTooltip(feature.properties.school_category.toString());}}
+      
+      
+      function treePointToLayer(feature, latlng) 
+      {if (taxaToHighlight === "") 
+      {schoolMarkerOptionsToUse = schoolMarkerOptions;} 
+       else {schoolMarkerOptionsToUse = schoolMarkerHighlightedOptions;}
+       return L.circleMarker(latlng,schoolMarkerOptionsToUse);}
+       
+       function filteredSchool (feature, latling)
+         {if (taxToFilter === "")
+        {schoolFilteredOptionsToUse = schoolMarkerOptions;}
+         else {schoolFilteredOptionsToUse = schoolMarkerHighlightedOptions;}
+          return L.circleMarker(latling, schoolFilteredOptionsToUse)}
+
+  
+
+    function schoolsToSelect (feature, layer) {
+      if(taxaToHighlight === "") {
+        return true;
+      }else if (feature.properties && feature.properties.school_name)
+      {return feature.properties.school_name.toLowerCase().includes(taxaToHighlight.toLowerCase());} else {
+        return false;}}
+      
+      function schoolsToFilter (feature, layer) {
+      if(taxToFilter === "") {
+        return true;
+      }else if (feature.properties && feature.properties.school_category)
+      {return feature.properties.school_category.toLowerCase().includes(taxToFilter.toLowerCase());} else {
+        return false;}}
+      
+      
+      
+
+  	var lastLayerAdded = {};
+
+
+    function addschools() {
+      if(map.hasLayer(lastLayerAdded)){  
+        map.removeLayer(lastLayerAdded);}
+      lastLayerAdded = L.geoJSON(treeGeoJSONdata, {
+  pointToLayer: treePointToLayer,
+  onEachFeature: onEachLots,
+  filter: schoolsToSelect});
+      
+      
+      function highlightSchools(){
+        if(map.hasLayer(lastLayerAdded)){  
+        map.removeLayer(lastLayerAdded);}
+      lastLayerAdded = L.geoJSON(treeGeoJSONdata, {
+  pointToLayer: treePointToLayer,
+  onEachFeature: onEachSchools,
+  filter: schoolsToSelect}); }
+      
+      
+      
+      
+      
+      
+      lastLayerAdded.addTo(map);
+    };
+
+    var taxaToHighlight = "";
+    var taxToFilter = "";
+
+    function highlightSchools() {
+      taxaToHighlight = document
+        .getElementById("highlightSchoolsTextEntry")
+        .value;  
+      addschools(); 
+      taxaToHighlight = "";  
+    }
+
+  var treeGeoJSONdata; 
+
+
+  $.getJSON("https://raw.githubusercontent.com/UBC-GEOS472-Spring2022/ethan-lab2/main/schools.geojson",
+              function(data){
+  	      		treeGeoJSONdata = data;
+		document
+            .getElementById("showAllSchoolsButton")
+            .addEventListener("click", addschools);
+
+		document
+           .getElementById("highlightSchoolsButton")
+           .addEventListener("click", highlightSchools);});
+      
+        document
+          .getElementById("showAllCategoryButton")
+          .addEventListener("click", highlightCategoryButton);
+</script>
