@@ -1,4 +1,4 @@
-# ethan-lab2
+# ethan-lab2-Schools in Vancouver
 
 ![](Picture/Screen.png)
 Web link : https://ubc-geos472-spring2022.github.io/ethan-lab2/Schools.html
